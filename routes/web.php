@@ -31,9 +31,10 @@ Route::post('/login/doctor', [DoctorLoginController::class, 'login']);
 Route::post('/logout', [LogoutController::class, 'logout'])->name('logout');
 
 
-
-
 Route::get('/register', [UserRegisterController::class, 'index'])->name('register');
 Route::post('/register', [UserRegisterController::class, 'store']);
 
 
+Route::get('/calendar/doctor', [CalendarController::class, 'index'])->name('calendar');
+Route::get('/calendar/set_wroking_days/doctor', [CalendarController::class, 'set_wroking_days'])->name('set_wroking_days');
+Route::post('/calendar/set_wroking_days/doctor', [CalendarController::class, 'store_wroking_days'])->name('store_working_days');
