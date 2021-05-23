@@ -36,5 +36,7 @@ Route::post('/register', [UserRegisterController::class, 'store']);
 
 
 Route::get('/calendar/doctor', [CalendarController::class, 'index'])->name('calendar');
-Route::get('/calendar/set_wroking_days/doctor', [CalendarController::class, 'set_wroking_days'])->name('set_wroking_days');
-Route::post('/calendar/set_wroking_days/doctor', [CalendarController::class, 'store_wroking_days'])->name('store_working_days');
+Route::get('/calendar/set_working_days/doctor', [CalendarController::class, 'set_working_days'])->name('set_working_days');
+Route::post('/calendar/store_working_days/doctor', [CalendarController::class, 'store_working_days'])->name('store_working_days');
+Route::get('/calendar/add_working_times/doctor', [CalendarController::class, 'add_working_times'])->name('add_working_times');
+Route::post('/calendar/store_wroking_times/doctor', [CalendarController::class, 'store_wroking_times'])->name('store_working_times');

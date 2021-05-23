@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Calendar;
+use App\Models\Work_time;
 use Illuminate\Http\Request;
 
 class CalendarController extends Controller
@@ -12,12 +13,12 @@ class CalendarController extends Controller
         return view('doctor.calendar');
     }
 
-    public function set_wroking_days()
+    public function set_working_days()
     {
-        return view('doctor.set_wroking_days');
+        return view('doctor.set_working_days');
     }
 
-    public function store_wroking_days(Request $request)
+    public function store_working_days(Request $request)
     {
         $data =  $request->input();
         $working_days = [];
@@ -40,5 +41,23 @@ class CalendarController extends Controller
         ]);
 
         dd("done");
+    }
+
+    public function add_working_times()
+    {
+        return view('doctor.add_working_times');
+    }
+
+    public function store_wroking_times(Request $request)
+    {
+        
+        Work_time::create([
+            'calendar_id' => auth()->user()->doctor->calendar->id,
+            'day' => $request->day,
+            'start' => $request->start,
+            'end'=> $request->end
+        ]);
+
+        // dd("done");
     }
 }

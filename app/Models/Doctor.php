@@ -23,4 +23,9 @@ class Doctor extends Model
         $date = now()->addMonths($nomber_months)->format('d-m-Y');;
         return $date;   
     }
+
+    public function calendar()
+    {
+        return $this->hasOne(Calendar::class);
+    }
 }
