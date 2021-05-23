@@ -7,17 +7,31 @@ use App\Models\Doctor;
 
 class DoctorsListController extends Controller
 {
-    public function index(){
+    public function index()
+    {
         $doctors = Doctor::join('users', 'users.id', '=', 'user_id')
-                         ->select( 'doctors.id', 'users.first_name', 'users.last_name', 'users.city', 'doctors.region','doctors.consultation_cost')
-                         ->get();
+            ->select('doctors.id', 'users.first_name', 'users.last_name', 'users.city', 'doctors.region', 'doctors.consultation_cost')
+            ->get();
 
         return view('doctors_list', [
             'doctors' => $doctors
         ]);
     }
 
-    public function getDoctor(){
+    public function getDoctor()
+    {
+        $doctor = Doctor::join('users', 'users.id', '=', 'user_id')
+        ->select('doctors.id', 'users.first_name', 'users.last_name', 'users.city', 'doctors.region', 'doctors.consultation_cost', 'doctors.consultation_time',
+        'phone')
+            ->where('doctors.id', '=', 1)
+            ->get();
+        $D = Doctor::where('doctors.id', '=', 1);
+        $maxDate = $D->getModel()->getMaxDate();
+        $doctor->maxDate = $maxDate;       
+        
+        return view('doctor_infos', [
+            'doctor' => $doctor
+        ]);
         
     }
 }

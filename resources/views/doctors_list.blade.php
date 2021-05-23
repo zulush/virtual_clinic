@@ -10,7 +10,7 @@
                         Dr. {{ $doctor->first_name }} {{ $doctor->last_name }} |
                         {{ $doctor->region }} {{ $doctor->city }} |
                         {{ $doctor->consultation_cost }} Dh |
-                        <a href="#">Plus d'information</a> |
+                        <a href="{{ route("doctor_infos") }}">Plus d'information</a> |
                         <a href="#">Demander un rendez-vous</a>
                     </p>
                     

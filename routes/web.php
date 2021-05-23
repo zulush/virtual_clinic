@@ -42,4 +42,4 @@ Route::get('/calendar/add_working_times/doctor', [CalendarController::class, 'ad
 Route::post('/calendar/store_wroking_times/doctor', [CalendarController::class, 'store_wroking_times'])->name('store_working_times');
 
 Route::get('/list/doctor', [DoctorsListController::class, 'index'])->name('doctors_list');
-
+Route::get('/infos/doctor', [DoctorsListController::class, 'getDoctor'])->name('doctor_infos');
