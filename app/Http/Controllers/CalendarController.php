@@ -6,13 +6,38 @@ use App\Models\Calendar;
 use App\Models\Work_time;
 use Illuminate\Http\Request;
 
+class Periode
+{
+    public $start;
+    public $end;
+}
+
 class CalendarController extends Controller
 {
     public function index()
     {
-        $work_times = auth()->user()->doctor->calendar->work_times;
+        $data = auth()->user()->doctor->calendar->work_times;
 
 
+
+        $work_times = array(
+            "monday" => array(),
+            "tuesday" => array(),
+            "wednesday" => array(),
+            "thursday" => array(),
+            "friday" => array(),
+            "saturday" => array(),
+            "sunday" => array(),
+        );
+
+        foreach ($data as $value) {
+            $P = new Periode();
+            $P->start = $value->start;
+            $P->end = $value->end;
+
+            array_push($work_times[$value->day], $P);
+        }
+        
         return view('doctor.calendar', [
             'work_times' => $work_times
         ]);
@@ -28,7 +53,7 @@ class CalendarController extends Controller
         $data =  $request->input();
         $working_days = [];
         foreach ($data as $key => $item) {
-            if($key != '_token'){
+            if ($key != '_token') {
                 array_push($working_days, $key);
             }
         }
@@ -55,12 +80,12 @@ class CalendarController extends Controller
 
     public function store_wroking_times(Request $request)
     {
-        
+
         Work_time::create([
             'calendar_id' => auth()->user()->doctor->calendar->id,
             'day' => $request->day,
             'start' => $request->start,
-            'end'=> $request->end
+            'end' => $request->end
         ]);
 
         // dd("done");
