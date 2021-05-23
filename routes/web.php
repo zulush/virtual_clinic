@@ -4,7 +4,7 @@ use App\Http\Controllers\auth\UserRegisterController;
 use App\Http\Controllers\auth\UserLoginController;
 use App\Http\Controllers\auth\LogoutController;
 use App\Http\Controllers\auth\DoctorLoginController;
-use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\DoctorsListController;
 use App\Http\Controllers\CalendarController;
 use Illuminate\Support\Facades\Route;
 
@@ -40,3 +40,6 @@ Route::get('/calendar/set_working_days/doctor', [CalendarController::class, 'set
 Route::post('/calendar/store_working_days/doctor', [CalendarController::class, 'store_working_days'])->name('store_working_days');
 Route::get('/calendar/add_working_times/doctor', [CalendarController::class, 'add_working_times'])->name('add_working_times');
 Route::post('/calendar/store_wroking_times/doctor', [CalendarController::class, 'store_wroking_times'])->name('store_working_times');
+
+Route::get('/list/doctor', [DoctorsListController::class, 'index'])->name('doctors_list');
+

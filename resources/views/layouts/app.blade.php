@@ -13,7 +13,7 @@
                 <a href="/">Home</a>
             </li>
             <li>
-                <a href="" >Posts</a>
+                <a href="{{ route('doctors_list') }}" >find doctor</a>
             </li>
         </ul>
 
@@ -21,6 +21,9 @@
             @auth
             <li>
                 <a href="">{{ auth()->user()->first_name }} {{ auth()->user()->last_name }}</a>
+            </li>
+            <li>
+                <a href="">Notifications</a>
             </li>
             <li>
                 <form action="{{ route('logout') }}" method="post">
