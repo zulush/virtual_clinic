@@ -20,4 +20,9 @@ class Calendar extends Model
         'sunday',
     ];
 
+    public function work_times()
+    {
+        return $this->hasMany(Work_time::class);
+    }
+
 }

@@ -10,7 +10,12 @@ class CalendarController extends Controller
 {
     public function index()
     {
-        return view('doctor.calendar');
+        $work_times = auth()->user()->doctor->calendar->work_times;
+
+
+        return view('doctor.calendar', [
+            'work_times' => $work_times
+        ]);
     }
 
     public function set_working_days()
