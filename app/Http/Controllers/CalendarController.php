@@ -16,31 +16,38 @@ class CalendarController extends Controller
 {
     public function index()
     {
-        $data = auth()->user()->doctor->calendar->work_times;
 
+        if (!auth()->user()->doctor->calendar) {
+            return view('doctor.calendar', [
+                'work_times' => []
+            ]);
+        } else {
 
+            $data = auth()->user()->doctor->calendar->work_times;
+            
+            
+            $work_times = array(
+                "monday" => array(),
+                "tuesday" => array(),
+                "wednesday" => array(),
+                "thursday" => array(),
+                "friday" => array(),
+                "saturday" => array(),
+                "sunday" => array(),
+            );
+            if($data){
+                foreach ($data as $value) {
+                    $P = new Periode();
+                    $P->start = $value->start;
+                    $P->end = $value->end;
 
-        $work_times = array(
-            "monday" => array(),
-            "tuesday" => array(),
-            "wednesday" => array(),
-            "thursday" => array(),
-            "friday" => array(),
-            "saturday" => array(),
-            "sunday" => array(),
-        );
-
-        foreach ($data as $value) {
-            $P = new Periode();
-            $P->start = $value->start;
-            $P->end = $value->end;
-
-            array_push($work_times[$value->day], $P);
+                    array_push($work_times[$value->day], $P);
+                }
+            }
+            return view('doctor.calendar', [
+                'work_times' => $work_times
+            ]);
         }
-        
-        return view('doctor.calendar', [
-            'work_times' => $work_times
-        ]);
     }
 
     public function set_working_days()
@@ -70,7 +77,7 @@ class CalendarController extends Controller
             'sunday' => in_array('sunday', $working_days),
         ]);
 
-        dd("done");
+        return redirect()->route('calendar');
     }
 
     public function add_working_times()
@@ -88,6 +95,6 @@ class CalendarController extends Controller
             'end' => $request->end
         ]);
 
-        // dd("done");
+        return redirect()->route('calendar'); 
     }
 }

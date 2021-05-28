@@ -6,6 +6,8 @@ use App\Http\Controllers\auth\LogoutController;
 use App\Http\Controllers\auth\DoctorLoginController;
 use App\Http\Controllers\DoctorsListController;
 use App\Http\Controllers\CalendarController;
+use App\Http\Controllers\AppointementController;
+use App\Http\Controllers\NotificationController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -42,4 +44,20 @@ Route::get('/calendar/add_working_times/doctor', [CalendarController::class, 'ad
 Route::post('/calendar/store_wroking_times/doctor', [CalendarController::class, 'store_wroking_times'])->name('store_working_times');
 
 Route::get('/list/doctor', [DoctorsListController::class, 'index'])->name('doctors_list');
-Route::get('/infos/doctor', [DoctorsListController::class, 'getDoctor'])->name('doctor_infos');
+Route::get('/infos/doctor/{doctor_id}', [DoctorsListController::class, 'getDoctor'])->name('doctor_infos');
+
+
+Route::get('/doctor/{doctor}/ask_for_appointement', [AppointementController::class, 'index'])->name('add_appointement');
+Route::post('/store_appointment/{doctor_id}', [AppointementController::class, 'store'])->name('store_appointment');
+Route::get('/doctor/get_appointements', [AppointementController::class, 'get_appointements'])->name('get_appointements');
+Route::post('/valid_appointment/{appointment_id}/{patient_id}', [AppointementController::class, 'valid_appointment'])->name('valid_appointment');
+Route::post('/valid_appointment_substitute/{appointment_id}/{patient_id}', [AppointementController::class, 'valid_appointment_substitute'])->name('valid_appointment_substitute');
+
+Route::get('/getWorkingTimes', [AppointementController::class, 'getWorkingTimes']);
+
+Route::get('/notifications', [NotificationController::class, 'index'])->name('unreaded_notifications');
+
+Route::post('/readed_notification/{notification_id}', [NotificationController::class, 'readed_notification'])->name('readed_notification');
+
+
+

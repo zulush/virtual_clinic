@@ -32,6 +32,6 @@ class UserLoginController extends Controller
         };
         
         
-        return redirect()->route('dashboard');       
+        return redirect()->route('home');       
     }
 }

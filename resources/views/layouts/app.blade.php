@@ -3,6 +3,8 @@
 
 <head>
     <meta charset="UTF-8">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <title>Virtual Clinic</title>
 </head>
 
@@ -23,7 +25,7 @@
                 <a href="">{{ auth()->user()->first_name }} {{ auth()->user()->last_name }}</a>
             </li>
             <li>
-                <a href="">Notifications</a>
+                <a href="{{ route('unreaded_notifications') }}">Notifications</a>
             </li>
             <li>
                 <form action="{{ route('logout') }}" method="post">

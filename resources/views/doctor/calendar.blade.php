@@ -6,7 +6,7 @@
         <h1>calendar</h1>
 
 
-        {{-- @if ($work_times->count()) --}}
+        @if (count($work_times))
         <table style="width:100%">  
             @foreach ($work_times as $day => $times )
                 
@@ -20,9 +20,9 @@
                     </tr>
             @endforeach
         </table>
-        {{-- @else
-            <p>Vous n'avez pas encore spécifié les durées de travail</p>
-        @endif --}}
+        @else
+            <p>Votre calendrier est toujours vide</p>
+        @endif
 
 
         <a href="{{ route('set_working_days') }}">Set working days</a>

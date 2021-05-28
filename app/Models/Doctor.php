@@ -26,6 +26,26 @@ class Doctor extends Model
 
     public function calendar()
     {
-        return $this->hasOne(Calendar::class);
+        return $this->hasOne(Calendar::class)->ofMany([
+            
+        ], function ($query) {
+            $query->latest('created_at')->first();
+        });
+    }
+
+    public function hasCalendar()
+    {
+        return Calendar::where('doctor_id', $this->id)->get()->count();
+    }
+
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    public function appointments()
+    {
+        return $this->hasMany(Appointment::class);
     }
 }

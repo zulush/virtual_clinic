@@ -4,7 +4,7 @@
 
     <div>
         <div>
-            <h2>For patient</h2>
+            {{-- <h2>For patient</h2> --}}
             @if (session('status'))
                 {{ session('status') }}
             @endif
@@ -26,7 +26,7 @@
                     <button type="submit">
                         Sign In
                     </button>
-                    <a href="{{ route('login.doctor') }}">I am a Doctor</a>
+                    {{-- <a href="{{ route('login.doctor') }}">I am a Doctor</a> --}}
                 </div>
             </form>
         </div>

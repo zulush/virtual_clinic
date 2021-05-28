@@ -18,14 +18,14 @@ class DoctorsListController extends Controller
         ]);
     }
 
-    public function getDoctor()
+    public function getDoctor($doctor_id)
     {
         $doctor = Doctor::join('users', 'users.id', '=', 'user_id')
         ->select('doctors.id', 'users.first_name', 'users.last_name', 'users.city', 'doctors.region', 'doctors.consultation_cost', 'doctors.consultation_time',
         'phone')
             ->where('doctors.id', '=', 1)
             ->get();
-        $D = Doctor::where('doctors.id', '=', 1);
+        $D = Doctor::where('doctors.id', '=', $doctor_id);
         $maxDate = $D->getModel()->getMaxDate();
         $doctor->maxDate = $maxDate;       
         

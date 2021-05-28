@@ -7,7 +7,8 @@
         @if (auth()->user())
             @if (auth()->user()->isDoctor())
                 <ul>
-                    <a href="{{ route('calendar') }}">Calendar</a>
+                    <li><a href="{{ route('calendar') }}">Calendar</a></li>
+                    <li><a href="{{ route('get_appointements') }}">Mes rendez-vous</a></li>
                 </ul>
                 <p>You're a Doctor</p>
             @else    

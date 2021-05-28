@@ -51,9 +51,15 @@ class User extends Authenticatable
 
     public function doctor()
     {
-        // if($this->isDoctor()){
-            return $this->hasOne(Doctor::class);
-        // }
-        // return null;
+        return $this->hasOne(Doctor::class);
+    }
+
+    public function notifications()
+    {
+        return $this->hasMany(Notification::class);
+    }
+
+    public function appointments(){
+        return $this->hasMany(Appointment::class);
     }
 }
