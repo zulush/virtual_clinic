@@ -49,9 +49,19 @@ class User extends Authenticatable
         return Doctor::where('user_id', '=', $this->id)->count();
     }
 
+    public function isAdmin() //Check if the user is a Admin
+    {
+        return Admin::where('user_id', '=', $this->id)->count();
+    }
+
     public function doctor()
     {
         return $this->hasOne(Doctor::class);
+    }
+
+    public function admin()
+    {
+        return $this->hasOne(Admin::class);
     }
 
     public function notifications()

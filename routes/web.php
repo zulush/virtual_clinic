@@ -8,6 +8,7 @@ use App\Http\Controllers\DoctorsListController;
 use App\Http\Controllers\CalendarController;
 use App\Http\Controllers\AppointementController;
 use App\Http\Controllers\NotificationController;
+use App\Http\Controllers\ConsultationController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -49,15 +50,19 @@ Route::get('/infos/doctor/{doctor_id}', [DoctorsListController::class, 'getDocto
 
 Route::get('/doctor/{doctor}/ask_for_appointement', [AppointementController::class, 'index'])->name('add_appointement');
 Route::post('/store_appointment/{doctor_id}', [AppointementController::class, 'store'])->name('store_appointment');
-Route::get('/doctor/get_appointements', [AppointementController::class, 'get_appointements'])->name('get_appointements');
+Route::get('/doctor/appointements', [AppointementController::class, 'get_appointements'])->name('get_appointements');
+Route::get('/doctor/confirmed_appointements', [AppointementController::class, 'get_confirmed_appointements'])->name('get_confirmed_appointements');
 Route::post('/valid_appointment/{appointment_id}/{patient_id}', [AppointementController::class, 'valid_appointment'])->name('valid_appointment');
 Route::post('/valid_appointment_substitute/{appointment_id}/{patient_id}', [AppointementController::class, 'valid_appointment_substitute'])->name('valid_appointment_substitute');
+Route::post('/delete_appointment/{appointment_id}', [AppointementController::class, 'delete_appointment'])->name('delete_appointment');
 
 Route::get('/getWorkingTimes', [AppointementController::class, 'getWorkingTimes']);
 
 Route::get('/notifications', [NotificationController::class, 'index'])->name('unreaded_notifications');
-
 Route::post('/readed_notification/{notification_id}', [NotificationController::class, 'readed_notification'])->name('readed_notification');
 
+Route::get('/doctor/get_appointements_patient', [AppointementController::class, 'get_appointements_patient'])->name('get_appointements_patient');
 
+Route::post('/add_consultation/{appointment_id}', [ConsultationController::class, 'add_consultation'])->name('add_consultation');
+Route::post('/add_medicament/{consultation_id}', [ConsultationController::class, 'add_medicament'])->name('add_medicament');
 

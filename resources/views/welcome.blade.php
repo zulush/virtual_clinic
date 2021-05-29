@@ -8,10 +8,12 @@
             @if (auth()->user()->isDoctor())
                 <ul>
                     <li><a href="{{ route('calendar') }}">Calendar</a></li>
-                    <li><a href="{{ route('get_appointements') }}">Mes rendez-vous</a></li>
+                    <li><a href="{{ route('get_appointements') }}">Mes rendez-vous non-confirmés</a></li>
+                    <li><a href="{{ route('get_appointements_patient') }}">Mes rendez-vous (Autant que patient)</a></li>
                 </ul>
                 <p>You're a Doctor</p>
-            @else    
+            @else
+                <li><a href="{{ route('get_appointements_patient') }}">Mes rendez-vous</a></li>
                 <p>You aren't a Doctor</p>
             @endif
         @else

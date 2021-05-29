@@ -26,7 +26,6 @@
                     <button type="submit">
                         Sign In
                     </button>
-                    {{-- <a href="{{ route('login.doctor') }}">I am a Doctor</a> --}}
                 </div>
             </form>
         </div>

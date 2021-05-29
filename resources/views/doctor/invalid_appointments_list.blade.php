@@ -9,7 +9,7 @@
         <hr>
         <h4>{{ $appointment->date }} {{ $appointment->time }}</h4>
         <h5>Patient: {{ $appointment->getPatient()->first_name}} {{ $appointment->getPatient()->last_name}}</h5>
-        <h5>tel: {{ $appointment->getPatient()->phone}}</h5>
+        <h5>tel: {{ $appointment->getPatient()->phonenumber}}</h5>
         <p>{{ $appointment->reason }}</p>
         <form action="{{ route('valid_appointment', [$appointment->id, $appointment->getPatient()->id]) }}" method="POST">
             @csrf
@@ -27,6 +27,10 @@
                 @endforeach
             </select>
             <input type="submit" value="Confirmer (avec remplaçant)">
+        </form>
+        <form action="{{ route("delete_appointment", [$appointment->id]) }}" method="POST">
+            @csrf
+            <input type="submit" value="Refuser">
         </form>
 
     @endforeach

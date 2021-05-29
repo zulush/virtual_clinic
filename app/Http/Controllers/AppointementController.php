@@ -11,7 +11,9 @@ use Illuminate\Http\Request;
 use App\Rules\Unpassed;
 use App\Rules\doctor_working_day;
 use App\Rules\doctor_available_at;
+use App\Rules\before_max_date;
 use Carbon\Carbon;
+use Symfony\Component\HttpKernel\Event\RequestEvent;
 
 class AppointementController extends Controller
 {
@@ -26,7 +28,7 @@ class AppointementController extends Controller
     {
 
         $this->validate($request, [
-            'appointment_date' => ['required', new Unpassed(), new doctor_working_day($doctor_id)],
+            'appointment_date' => ['required', new Unpassed(), new doctor_working_day($doctor_id), new before_max_date(($doctor_id))],
             'time' => ['required', new doctor_available_at($request->appointment_date, $doctor_id)],
         ]);
 
@@ -80,11 +82,22 @@ class AppointementController extends Controller
         return response()->json($times_array);
     }
 
+
     public function get_appointements()
     {
         $appointments = auth()->user()->doctor->appointments->where("valid", 0);
         $doctors = Doctor::all();
         return view('doctor.invalid_appointments_list', compact('appointments', 'doctors'));
+    }
+
+    public function get_confirmed_appointements()
+    {
+        $appointments = Appointment::doesnthave('consultations')->where("valid", 1)
+        ->where('doctor_id', auth()->user()->doctor->id)
+        ->get();
+        return view('doctor.confirmed_appointment_list', [
+            'appointments' => $appointments
+        ]);
     }
 
     public function valid_appointment(Request $request)
@@ -123,4 +136,35 @@ class AppointementController extends Controller
 
         return redirect(route('get_appointements'));
     }
+
+    public function get_appointements_patient(){
+        $appointments = Appointment::where("patient_id", auth()->user()->id)->get();
+        
+        return view('patient_appointments', [
+            'appointments' => $appointments
+        ]);
+    }
+
+    public function delete_appointment(Request $request){
+
+        $appointments = Appointment::where('id', $request->appointment_id)->get();
+        
+        if (auth()->user()->isDoctor()) {
+            $notifiction_content = "Le médecin n'a pas confirmé votre demande de rendez-vous du ".$appointments[0]->date." à ".$appointments[0]->time.".";
+            $user_id = $appointments[0]->patient_id;
+        } else {
+            $notifiction_content = "Le patient a annulé son rendez-vous du ".$appointments[0]->date." à ".$appointments[0]->time.".";
+            $user_id = Doctor::find($appointments[0]->doctor_id)->user_id;
+        }
+        
+        Notification::create([
+            'user_id' => $user_id,
+            'readed' => false,
+            'content' => $notifiction_content
+        ]);
+        Appointment::find($request->appointment_id)->delete();
+        
+        return redirect( route("get_appointements_patient") );
+    }
+
 }

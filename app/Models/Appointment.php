@@ -25,4 +25,8 @@ class Appointment extends Model
         return $patient;
     }
 
+    public function consultations(){
+        return $this->hasMany(Consultation::class);
+    }
+
 }

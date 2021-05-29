@@ -25,8 +25,9 @@
         @endif
 
 
-        <a href="{{ route('set_working_days') }}">Set working days</a>
-        <a href="{{ route('add_working_times') }}">Add working time</a>
+        <a href="{{ route('set_working_days') }}">Set working days</a><br>
+        <a href="{{ route('add_working_times') }}">Add working time</a><br>
+        <a href="{{ route('get_confirmed_appointements') }}">Mes rendez-vous</a>
     </div>
 
 
