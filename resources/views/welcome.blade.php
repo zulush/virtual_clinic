@@ -16,6 +16,10 @@
                 <li><a href="{{ route('get_appointements_patient') }}">Mes rendez-vous</a></li>
                 <p>You aren't a Doctor</p>
             @endif
+            @if (auth()->user()->isAdmin())
+                <li><a href="{{ route('admin') }}">Espace admin</a></li>
+            @endif
+            
         @else
             <p>you should login</p>
         @endif

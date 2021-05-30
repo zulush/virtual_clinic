@@ -9,6 +9,7 @@ use App\Http\Controllers\CalendarController;
 use App\Http\Controllers\AppointementController;
 use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\ConsultationController;
+use App\Http\Controllers\AdminController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -66,3 +67,6 @@ Route::get('/doctor/get_appointements_patient', [AppointementController::class, 
 Route::post('/add_consultation/{appointment_id}', [ConsultationController::class, 'add_consultation'])->name('add_consultation');
 Route::post('/add_medicament/{consultation_id}', [ConsultationController::class, 'add_medicament'])->name('add_medicament');
 
+Route::get('/admin', [AdminController::class, 'index'])->name('admin');
+Route::get('/admin/add_doctor', [AdminController::class, 'add_doctor'])->name('add_doctor');
+Route::post('/admin/store_doctor', [AdminController::class, 'store_doctor'])->name('doctor_register');
