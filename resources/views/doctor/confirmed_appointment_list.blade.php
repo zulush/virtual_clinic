@@ -1,29 +1,25 @@
-@extends('layouts.app')
+@extends('layouts.front')
 
 @section('content')
 
-<div>
+<div class="calendarediiiit">
     <h2>Les rendez-vous à confirmer</h2>
     
     @foreach ($appointments as $appointment)
-        <hr>
-        <h4>{{ $appointment->date }} {{ $appointment->time }}</h4>
-        <h5>Patient: {{ $appointment->getPatient()->first_name}} {{ $appointment->getPatient()->last_name}}</h5>
-        <h5>tel: {{ $appointment->getPatient()->phonenumber}}</h5>
-        <p>{{ $appointment->reason }}</p>
-        <form action="{{ route('add_consultation', $appointment->id) }}" method="POST">
-            @csrf
-            <label for="temprature">Température: </label>
-            <input type="text" name="temperature"><br>
-            <label for="weight">Poids</label>
-            <input type="text" name="weight"><br>
-            <label for="blood_pressure">Tension</label>
-            <input type="text" name="blood_pressure"><br>
-            <label for="details">Détails</label><br>
-            <textarea name="details" id="" cols="30" rows="10"></textarea><br>
-            <input type="submit" value="ajouter consultation">
-        </form>
-
+        <div class="rndconf">
+            <h3>Patient: {{ $appointment->getPatient()->first_name}} {{ $appointment->getPatient()->last_name}}</h3>
+            <h4>{{ $appointment->reason }}</h4>
+            <h6>{{ $appointment->date }} {{ $appointment->time }}</h6>
+            <form action="{{ route('add_consultation', $appointment->id) }}" method="POST">
+                @csrf
+                <input type="text" name="temperature" placeholder="Température:">
+                <input type="text" name="weight" placeholder="Poids">
+                <input type="text" name="blood_pressure" placeholder="Tension"><br>
+                <textarea name="details" id="" cols="30" rows="5" placeholder="........ Detail">......Détails</textarea><br>
+                <input class="submit" type="submit" value="ajouter consultation">
+            </form>
+            <hr>
+        </div>
     @endforeach
 
 

@@ -1,9 +1,9 @@
-@extends('layouts.app')
+@extends('layouts.front')
 
 @section('content')
 
     <div>
-        <div>
+        <div class="logindoctornew">
             <h3>For Doctors</h3>
             <form action="{{ route('login.doctor') }}" method="POST">
                 @csrf

@@ -1,41 +1,77 @@
-<h1>Espace Admin: {{ auth()->user()->first_name }} {{ auth()->user()->last_name }}</h1>
+@extends('layouts.admin')
 
-<ul>
-    <li><a href="{{ route('add_doctor') }}">Ajouter un médecin</a></li>
+@section('content')
+<div class="main-content">
+    <main>
+        <h2 class="dash-title">Espace Admin: {{ auth()->user()->first_name }} {{ auth()->user()->last_name }}</h2>
 
-    <hr>
-    <h3>Utilisateurs: </h3>
-    <ul>
-        <li>{{ $statistics->users }} utilisateurs</li>
-        <li>{{ $statistics->doctors }} doctors</li>
-        <li>{{ $statistics->patients }} patients</li>
-        <li>{{ $statistics->admis }} admis</li>
-    </ul>
-    <hr>
-    <h3>Rendez-vous:</h3>
-    <ul>
-        <li>{{ $statistics->appointments }} rendez-vous</li>
-        <li>{{ $statistics->valid_appointments }} confirmés</li>
-        <li>{{ $statistics->invalid_appointments }} non-confirmés</li>
-    </ul>
-    <hr>
-    <h3>Consultation:</h3>
-    <ul>
-        <li>{{ $statistics->consultations }} consultations</li>
-    </ul>
-    <hr>
-    <h3>Médicaments</h3>
-    <ul>
-        <li>{{ $statistics->medicaments }} médicaments</li>
-    </ul>
-    <hr>
-    <h3>Notifications:</h3>
-    <ul>
-        <li>{{ $statistics->notifications }} notifications</li>
-        <li>{{ $statistics->readed_notifications }} lus</li>
-        <li>{{ $statistics->unreaded_notifications }} non-lus</li>
-    </ul>
-    <hr>
+        <div class="dash-cards">
+            <div class="card-single">
+                <div class="card-body">
+                    <span class="ti-briefcase"></span>
+                    <div>
+                        <h5>Doctor</h5>
+                        <h4>{{ $statistics->doctors }}</h4>
+                    </div>
+                </div>
+            </div>
 
+            <div class="card-single">
+                <div class="card-body">
+                    <span class="ti-briefcase"></span>
+                    <div>
+                        <h5>Rendez-vous</h5>
+                        <h4>{{ $statistics->appointments }}</h4>
+                    </div>
+                </div>
+            </div>
 
-</ul>
+            <div class="card-single">
+                <div class="card-body">
+                    <span class="ti-briefcase"></span>
+                    <div>
+                        <h5>Patients</h5>
+                        <h4>{{ $statistics->patients }}</h4>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card-single">
+                <div class="card-body">
+                    <span class="ti-briefcase"></span>
+                    <div>
+                        <h5>Rendez-vous:non-confirmés</h5>
+                        <h4>{{ $statistics->invalid_appointments }}</h4>
+                    </div>
+                </div>
+            </div>
+
+        <section class="recent">
+            <h3>Recent doctors added</h3>
+            <div class="table-responsive">
+                <table style="width: 100%;">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Region</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach ($doctors as $doc)
+                            <tr>
+                                <td> {{ $doc->region }} </td>
+                                <td> {{ $doc->phone }} </td>
+                                <td> {{ $doc->consultation_cost }}</td>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </main>
+    
+</div>
+    
+
+@endsection

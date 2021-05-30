@@ -39,16 +39,16 @@ class AppointementController extends Controller
 
         
         Appointment::create([
-            'doctor_id' => (Doctor::where('id', $doctor_id)->select("user_id")->get())[0]->user_id,
+            'doctor_id' => $doctor_id,
             'patient_id' => auth()->user()->id,
             'date'=> $request->appointment_date,
             'time' => $request->time,
             'reason'=> $request->reason,
-            'valid' => false,
+            'valid' => false
         ]);
 
         Notification::create([
-            'user_id' => $doctor_id,
+            'user_id' => (Doctor::where('id', $doctor_id)->select("user_id")->get())[0]->user_id,
             'readed' => false,
             'content' => $notifiction_content_doctor
         ]);
@@ -58,7 +58,8 @@ class AppointementController extends Controller
             'readed' => false,
             'content' => $notifiction_content_patient
         ]);
-        
+
+        return Redirect("/");
     }
 
     public function getWorkingTimes(Request $request)

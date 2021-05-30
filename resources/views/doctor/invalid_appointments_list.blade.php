@@ -1,19 +1,20 @@
-@extends('layouts.app')
+@extends('layouts.front')
 
 @section('content')
 
-<div>
+<div class="calendarediiiit">
     <h2>Les rendez-vous à confirmer</h2>
     
     @foreach ($appointments as $appointment)
-        <hr>
+        <div class="detail">
+            <hr>
         <h4>{{ $appointment->date }} {{ $appointment->time }}</h4>
         <h5>Patient: {{ $appointment->getPatient()->first_name}} {{ $appointment->getPatient()->last_name}}</h5>
         <h5>tel: {{ $appointment->getPatient()->phonenumber}}</h5>
         <p>{{ $appointment->reason }}</p>
         <form action="{{ route('valid_appointment', [$appointment->id, $appointment->getPatient()->id]) }}" method="POST">
             @csrf
-            <input type="submit" value="Confirmer (sans remplaçant)">
+            <input class="submit" type="submit" value="Confirmer (sans remplaçant)">
         </form>
 
         <form action="{{ route('valid_appointment_substitute', [$appointment->id, $appointment->getPatient()->id]) }}" method="POST">
@@ -26,13 +27,14 @@
                     @endif
                 @endforeach
             </select>
-            <input type="submit" value="Confirmer (avec remplaçant)">
+            <input class="submit" type="submit" value="Confirmer (avec remplaçant)"><br>
         </form>
         <form action="{{ route("delete_appointment", [$appointment->id]) }}" method="POST">
             @csrf
-            <input type="submit" value="Refuser">
+            <br><input class="submit" type="submit" value="Refuser">
         </form>
-
+        <hr>
+        </div>
     @endforeach
 
 

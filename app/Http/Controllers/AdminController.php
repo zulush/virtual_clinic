@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Hash;
 use App\Models\User;
 use App\Models\Doctor;
 use Illuminate\Http\Request;
+use DB;
 
 class AdminController extends Controller
 {
@@ -34,9 +35,12 @@ class AdminController extends Controller
                 $statistics->readed_notifications = Notification::where('readed', 1)->count();
                 $statistics->unreaded_notifications = $statistics->notifications - $statistics->readed_notifications;
 
+                $doctors= DB::table('doctors')->orderBy('id', 'desc')->get();
+        
                 
                 return view("admin.espace_admin",[
-                    'statistics' => $statistics
+                    'statistics' => $statistics,
+                    'doctors'     => $doctors
                 ]);
             } else {
                 abort(404);

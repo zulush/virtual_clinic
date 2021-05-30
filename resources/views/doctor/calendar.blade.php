@@ -1,9 +1,9 @@
-@extends('layouts.app')
+@extends('layouts.front')
 
 @section('content')
 
-    <div>
-        <h1>calendar</h1>
+    <div class="calendarediiiit">
+        <h2>fixer votre calendrier</h2>
 
 
         @if (count($work_times))
@@ -24,9 +24,9 @@
             <p>Votre calendrier est toujours vide</p>
         @endif
 
-
-        <a href="{{ route('set_working_days') }}">Set working days</a><br>
-        <a href="{{ route('add_working_times') }}">Add working time</a><br>
+        <br><br><br>
+        <a href="{{ route('set_working_days') }}">Set working days</a>
+        <a href="{{ route('add_working_times') }}">Add working time</a>
         <a href="{{ route('get_confirmed_appointements') }}">Mes rendez-vous</a>
     </div>
 

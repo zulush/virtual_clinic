@@ -1,9 +1,9 @@
-@extends('layouts.app')
+@extends('layouts.front')
 
 @section('content')
 
     <div>
-        <div>
+        <div class="logindoctornew">
             {{-- <h2>For patient</h2> --}}
             @if (session('status'))
                 {{ session('status') }}
@@ -11,19 +11,13 @@
             <form action="{{ route('login') }}" method="POST">
                 @csrf
                 <div>
-                    <label for="email">
-                        Email
-                    </label>
-                    <input id="username" name="email" type="email" placeholder="Email">
+                    <input class="ununo" id="username" name="email" type="email" placeholder="Email">
                 </div>
                 <div>
-                    <label for="password">
-                        Password
-                    </label>
-                    <input id="password" name="password" type="password" placeholder="******************">
+                    <input class="ununo" id="password" name="password" type="password" placeholder="Password">
                 </div>
                 <div>
-                    <button type="submit">
+                    <button class="submit" type="submit">
                         Sign In
                     </button>
                 </div>

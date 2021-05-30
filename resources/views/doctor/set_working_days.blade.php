@@ -1,8 +1,8 @@
-@extends('layouts.app')
+@extends('layouts.front')
 
 @section('content')
 
-<div>
+<div class="calendar">
     <h1>Set working days</h1>
     <form action="{{ route('store_working_days') }}" method="POST">
         @csrf
@@ -20,7 +20,7 @@
         <label for="saturday"> Samedi</label><br>
         <input type="checkbox" id="sunday" name="sunday" value="sunday">
         <label for="sunday"> Dimanche</label><br>
-        <button type="submit">
+        <button class="submit" type="submit">
             Set working days
         </button>
     </form>

@@ -18,6 +18,15 @@ class DoctorsListController extends Controller
         ]);
     }
 
+    public function filter(Request $request){
+        $doctors = Doctor::where('consultation_cost','like',$request->price)
+                ->where('region','like',$request->region)
+                ->where('specialty','like',$request->specialty)
+                ->get();
+            $nbr = $doctors->count();
+            return View('FilterDoctor', compact('doctors' , 'nbr'));
+    }
+
     public function getDoctor($doctor_id)
     {
         $doctor = Doctor::join('users', 'users.id', '=', 'user_id')

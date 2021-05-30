@@ -1,8 +1,8 @@
-@extends('layouts.app')
+@extends('layouts.front')
 
 @section('content')
 
-    <div>
+    <div class="calendar">
         <h1>Add working times</h1>
 
 
@@ -10,7 +10,7 @@
             <form action="{{ route('store_working_times') }}" method="POST">
                 @csrf
                 <label for="cars">Choisissez le jour:</label>
-                <select id="day" name="day">
+                <select class="selectjour" id="day" name="day">
                     @if (auth()->user()->doctor->calendar->monday)
                         <option value="monday">Lundi</option>
                     @endif
@@ -32,20 +32,20 @@
                     @if (auth()->user()->doctor->calendar->sunday)
                         <option value="sunday">Dimanche</option>
                     @endif
-                </select><br>
+                </select><br><br>
                 <label for="start">Debut:</label>
-                <select id="start" name="start">
+                <select class="selecttemps" id="start" name="start">
                     @for ($i = 0; $i < 24; $i++)
                         <option value="{{ $i }}">{{ $i }}:00</option>
                     @endfor
                 </select>
                 <label for="start">Fin:</label>
-                <select id="end" name="end">
+                <select class="selecttemps" id="end" name="end">
                     @for ($i = 0; $i < 24; $i++)
                         <option value="{{ $i }}">{{ $i }}:00</option>
                     @endfor
-                </select>
-                <button type="submit">
+                </select><br><br>
+                <button class="submit" type="submit">
                     Add working time
                 </button>
             @else
